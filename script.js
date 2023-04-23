@@ -11,6 +11,7 @@ var sectionQ5 = document.querySelector('.question-05');
 var sectionDone = document.querySelector('.done');
 var sectionHighScores = document.querySelector('.high-scores');
 var feedback = document.querySelector('.feedback');
+var scoreDisplay = document.querySelector('#score');
 
 /////// variables ////////
 var secondsLeft = 100;
@@ -40,6 +41,19 @@ var loseTime = function () {
 var init = function () {
     secondsLeft = 100;
     sectionStart.setAttribute('class', 'visible');
+}
+
+// game over fucntion
+var gameOver = function () {
+    if (secondsLeft === 0) {
+        // hide current section
+
+        // show section done
+
+        // display score 
+    } else if (sectionDone.classList.includes('visible')) {
+        scoreDisplay.textContent = 'Your final score is' + secondsLeft;
+    }
 }
 
 

@@ -102,6 +102,58 @@ body {
     font-size: 3rem;
 }
 
+.done-box {
+    text-transform: capitalize;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 50vw;
+    margin: 0 auto;
+    margin-top: 10rem;
+    height: 30rem;
+}
+
+#score {
+    margin: 1rem 0;
+}
+
+form {
+    width: 55%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-input {
+    width: 40%;
+    height: 4.5rem;
+    border-radius: 5px;
+    border: none;
+    font-size: 2rem;
+    font-family: inherit;
+    padding-left: .5rem;
+    border: 2px solid #532b88;
+    text-transform: uppercase;
+}
+
+
+.form-btn {
+    color: #f4effa;
+    background-color: #532b88;
+    padding: 1rem 4rem;
+    font-size: 2rem;
+    text-transform: capitalize;
+    font-family: inherit;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form-btn:hover {
+    background-color: #2f184b;
+
+}
+
 .hidden {
     display: none;
 }
