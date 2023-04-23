@@ -10,6 +10,7 @@ var sectionQ4 = document.querySelector('.question-04');
 var sectionQ5 = document.querySelector('.question-05');
 var sectionDone = document.querySelector('.done');
 var sectionHighScores = document.querySelector('.high-scores');
+var feedback = document.querySelector('.feedback');
 
 /////// variables ////////
 var secondsLeft = 100;
@@ -64,6 +65,8 @@ sectionQ1.addEventListener('click', function (event) {
         sectionQ2.setAttribute('class', 'visible');
     } else {
         loseTime();
+        feedback.innerHTML = 'Wrong!';
+        feedback.setAttribute('class', 'visible');
     }
 });
 
