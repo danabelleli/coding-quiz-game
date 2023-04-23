@@ -41,12 +41,6 @@ var init = function () {
     sectionStart.setAttribute('class', 'visible');
 }
 
-// display next Q function
-
-
-
-
-
 
 
 /////// Event listeners ////////
@@ -61,3 +55,62 @@ highScoresBtn.addEventListener('click', function () {
 
     // show high-scores section
 })
+
+sectionQ1.addEventListener('click', function (event) {
+    var element = event.target;
+    var number = element.getAttribute("data-number");
+    if (number === '3') {
+        sectionQ1.setAttribute('class', 'hidden');
+        sectionQ2.setAttribute('class', 'visible');
+    } else {
+        loseTime();
+    }
+});
+
+sectionQ2.addEventListener('click', function (event) {
+    var element = event.target;
+    var number = element.getAttribute("data-number");
+
+    if (number === '3') {
+        sectionQ2.setAttribute('class', 'hidden');
+        sectionQ3.setAttribute('class', 'visible');
+    } else {
+        loseTime();
+    }
+});
+
+sectionQ3.addEventListener('click', function (event) {
+    var element = event.target;
+    var number = element.getAttribute("data-number");
+
+    if (number === '4') {
+        sectionQ3.setAttribute('class', 'hidden');
+        sectionQ4.setAttribute('class', 'visible');
+    } else {
+        loseTime();
+    }
+});
+
+sectionQ4.addEventListener('click', function (event) {
+    var element = event.target;
+    var number = element.getAttribute("data-number");
+
+    if (number === '3') {
+        sectionQ4.setAttribute('class', 'hidden');
+        sectionQ5.setAttribute('class', 'visible');
+    } else {
+        loseTime();
+    }
+});
+
+sectionQ5.addEventListener('click', function (event) {
+    var element = event.target;
+    var number = element.getAttribute("data-number");
+
+    if (number === '4') {
+        sectionQ5.setAttribute('class', 'hidden');
+        sectionDone.setAttribute('class', 'visible');
+    } else {
+        loseTime();
+    }
+});
