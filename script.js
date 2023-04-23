@@ -13,47 +13,51 @@ var sectionHighScores = document.querySelector('.high-scores');
 var feedback = document.querySelector('.feedback');
 var scoreDisplay = document.querySelector('#score');
 
-/////// variables ////////
+/////// Variables ////////
 var secondsLeft = 100;
-var currentSection;
+var currentSection = sectionStart;
+var timerInterval;
 
 /////// Functions ////////
 // Timer function
 function setTime() {
-    var timerInterval = setInterval(function () {
+    timerInterval = setInterval(function () {
         secondsLeft--;
         timerDisplay.textContent = "time: " + secondsLeft;
 
         if (secondsLeft === 0) {
             // Stops execution of action at set interval
             clearInterval(timerInterval);
+            // Call Function to close game 
+            gameOver();
         }
 
     }, 1000);
 }
 
-// function wrong answer -> lose time
+// Function wrong answer -> lose time
 var loseTime = function () {
-    secondsLeft -= 10;
+    if ((secondsLeft - 10) <= 0) {
+        secondsLeft = 0;
+        gameOver();
+        timerDisplay.textContent = 'Time: 0';
+    } else {
+        secondsLeft -= 10;
+    }
 }
 
-// init function 
+// Init function 
 var init = function () {
     secondsLeft = 100;
     sectionStart.setAttribute('class', 'visible');
 }
 
-// game over fucntion
+// Game over function
 var gameOver = function () {
-    if (secondsLeft === 0) {
-        // hide current section
-
-        // show section done
-
-        // display score 
-    } else if (sectionDone.classList.includes('visible')) {
-        scoreDisplay.textContent = 'Your final score is' + secondsLeft;
-    }
+    currentSection.setAttribute('class', 'hidden');
+    sectionDone.setAttribute('class', 'visible');
+    scoreDisplay.textContent = 'Your final score is ' + secondsLeft;
+    clearInterval(timerInterval);
 }
 
 
@@ -67,8 +71,12 @@ btnStart.addEventListener('click', function () {
 
 highScoresBtn.addEventListener('click', function () {
     // hide current section
-
+    currentSection.setAttribute('class', 'hidden');
     // show high-scores section
+    sectionHighScores.setAttribute('class', 'visible');
+    // clear interval
+    clearInterval(timerInterval);
+    timerDisplay.textContent = 'Time: 0';
 })
 
 sectionQ1.addEventListener('click', function (event) {
@@ -77,10 +85,12 @@ sectionQ1.addEventListener('click', function (event) {
     if (number === '3') {
         sectionQ1.setAttribute('class', 'hidden');
         sectionQ2.setAttribute('class', 'visible');
+        currentSection = sectionQ2;
     } else {
         loseTime();
         feedback.innerHTML = 'Wrong!';
         feedback.setAttribute('class', 'visible');
+        currentSection = sectionQ1;
     }
 });
 
@@ -91,8 +101,10 @@ sectionQ2.addEventListener('click', function (event) {
     if (number === '3') {
         sectionQ2.setAttribute('class', 'hidden');
         sectionQ3.setAttribute('class', 'visible');
+        currentSection = sectionQ3;
     } else {
         loseTime();
+        currentSection = sectionQ2;
     }
 });
 
@@ -103,8 +115,10 @@ sectionQ3.addEventListener('click', function (event) {
     if (number === '4') {
         sectionQ3.setAttribute('class', 'hidden');
         sectionQ4.setAttribute('class', 'visible');
+        currentSection = sectionQ4;
     } else {
         loseTime();
+        currentSection = sectionQ3;
     }
 });
 
@@ -115,18 +129,19 @@ sectionQ4.addEventListener('click', function (event) {
     if (number === '3') {
         sectionQ4.setAttribute('class', 'hidden');
         sectionQ5.setAttribute('class', 'visible');
+        currentSection = sectionQ5;
     } else {
         loseTime();
+        currentSection = sectionQ4;
     }
 });
 
 sectionQ5.addEventListener('click', function (event) {
     var element = event.target;
     var number = element.getAttribute("data-number");
-
+    currentSection = sectionQ5;
     if (number === '4') {
-        sectionQ5.setAttribute('class', 'hidden');
-        sectionDone.setAttribute('class', 'visible');
+        gameOver();
     } else {
         loseTime();
     }
