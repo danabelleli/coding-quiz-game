@@ -140,8 +140,12 @@ sectionQ1.addEventListener('click', function (event) {
         sectionQ1.setAttribute('class', 'hidden');
         sectionQ2.setAttribute('class', 'visible');
         currentSection = sectionQ2;
+        //   feedback.innerHTML = 'Correct!';
+        //   feedback.setAttribute('class', 'feedback visible');
     } else {
         loseTime();
+        feedback.innerHTML = 'Wrong!';
+        feedback.setAttribute('class', 'visible');
         currentSection = sectionQ1;
     }
 });
