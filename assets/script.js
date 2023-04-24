@@ -12,11 +12,16 @@ var sectionDone = document.querySelector('.done');
 var sectionHighScores = document.querySelector('.high-scores');
 var feedback = document.querySelector('.feedback');
 var scoreDisplay = document.querySelector('#score');
+var initials = document.querySelector('#initials');
+var ul = document.querySelector('.high-scores-list');
+var formBtn = document.querySelector('.form-btn');
+var btnBack = document.querySelector('#btn-back');
 
 /////// Variables ////////
 var secondsLeft = 100;
 var currentSection = sectionStart;
 var timerInterval;
+var highScores = [];
 
 /////// Functions ////////
 // Timer function
@@ -60,6 +65,33 @@ var gameOver = function () {
     clearInterval(timerInterval);
 }
 
+// setting value in local storage
+var setHighScores = function () {
+    localStorage.setItem('highScores', JSON.stringify(highScores));
+}
+
+
+// Getting values from local storage
+var renderHighScores = function () {
+    for (var i = 0; i < highScores.length; i++) {
+        var highScore = highScores[i];
+
+        var li = document.createElement('li');
+        li.textContent = highScore;
+        li.setAttribute('data-index', i);
+
+        ul.appendChild(li);
+    }
+}
+
+
+
+// going back to main page
+var backToMain = function () {
+    sectionHighScores.setAttribute('class', 'hidden');
+    sectionStart.setAttribute('class', 'visible');
+}
+
 
 
 /////// Event listeners ////////
@@ -72,11 +104,13 @@ btnStart.addEventListener('click', function () {
 highScoresBtn.addEventListener('click', function () {
     // hide current section
     currentSection.setAttribute('class', 'hidden');
+    console.log(currentSection);
     // show high-scores section
     sectionHighScores.setAttribute('class', 'visible');
     // clear interval
     clearInterval(timerInterval);
     timerDisplay.textContent = 'Time: 0';
+    renderHighScores();
 })
 
 sectionQ1.addEventListener('click', function (event) {
@@ -146,3 +180,22 @@ sectionQ5.addEventListener('click', function (event) {
         loseTime();
     }
 });
+
+formBtn.addEventListener('click', function () {
+    var highScoreText = initials.value;
+    if (highScoreText === '') {
+        return;
+    } else {
+        highScores.push(highScoreText);
+        highScoreText.value = '';
+    }
+    setHighScores();
+    renderHighScores();
+});
+
+btnBack.addEventListener('click', backToMain);
+
+
+
+
+
