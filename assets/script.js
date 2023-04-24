@@ -40,6 +40,7 @@ function setTime() {
     }, 1000);
 }
 
+
 // Function wrong answer -> lose time
 var loseTime = function () {
     if ((secondsLeft - 10) <= 0) {
@@ -71,7 +72,7 @@ var setHighScores = function () {
 }
 
 
-// Getting values from local storage
+// Getting values from local storage (this is not working)
 var renderHighScores = function () {
     for (var i = 0; i < highScores.length; i++) {
         var highScore = highScores[i];
@@ -86,7 +87,7 @@ var renderHighScores = function () {
 
 
 
-// going back to main page
+// Going back to main page
 var backToMain = function () {
     sectionHighScores.setAttribute('class', 'hidden');
     sectionStart.setAttribute('class', 'visible');
@@ -110,7 +111,7 @@ highScoresBtn.addEventListener('click', function () {
     // clear interval
     clearInterval(timerInterval);
     timerDisplay.textContent = 'Time: 0';
-    renderHighScores();
+    // show list of high scores
 })
 
 sectionQ1.addEventListener('click', function (event) {
@@ -122,8 +123,6 @@ sectionQ1.addEventListener('click', function (event) {
         currentSection = sectionQ2;
     } else {
         loseTime();
-        feedback.innerHTML = 'Wrong!';
-        feedback.setAttribute('class', 'visible');
         currentSection = sectionQ1;
     }
 });
