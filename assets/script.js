@@ -13,9 +13,10 @@ var sectionHighScores = document.querySelector('.high-scores');
 var feedback = document.querySelector('.feedback');
 var scoreDisplay = document.querySelector('#score');
 var initials = document.querySelector('#initials');
-var ul = document.querySelector('.high-scores-list');
+var ulHighScore = document.querySelector('.high-scores-list');
 var formBtn = document.querySelector('.form-btn');
 var btnBack = document.querySelector('#btn-back');
+var btnClear = document.querySelector('#btn-clear');
 
 /////// Variables ////////
 var secondsLeft = 100;
@@ -74,23 +75,40 @@ var setHighScores = function () {
 
 // Getting values from local storage (this is not working)
 var renderHighScores = function () {
+
+    highScores = JSON.parse(localStorage.getItem('highScores'));
+
+    // clean old item list 
+    ulHighScore.innerHTML = '';
+
+    // add innitials to list
     for (var i = 0; i < highScores.length; i++) {
-        var highScore = highScores[i];
-
         var li = document.createElement('li');
-        li.textContent = highScore;
+        li.textContent = highScores[i];
         li.setAttribute('data-index', i);
+        li.setAttribute('class', 'high-scores-item');
 
-        ul.appendChild(li);
+        ulHighScore.appendChild(li);
     }
+}
+
+// function clear high scores
+var clearHighScores = function () {
+    // clear data from local storage
+    localStorage.setItem('highScores', JSON.stringify([]));
+    // clear data from render
+    renderHighScores();
 }
 
 
 
 // Going back to main page
 var backToMain = function () {
+    currentSection = sectionStart;
     sectionHighScores.setAttribute('class', 'hidden');
     sectionStart.setAttribute('class', 'visible');
+    timerDisplay.textContent = 'Time: 100';
+    secondsLeft = 100;
 }
 
 
@@ -112,6 +130,7 @@ highScoresBtn.addEventListener('click', function () {
     clearInterval(timerInterval);
     timerDisplay.textContent = 'Time: 0';
     // show list of high scores
+    renderHighScores();
 })
 
 sectionQ1.addEventListener('click', function (event) {
@@ -180,19 +199,27 @@ sectionQ5.addEventListener('click', function (event) {
     }
 });
 
-formBtn.addEventListener('click', function () {
-    var highScoreText = initials.value;
+formBtn.addEventListener('click', function (event) {
+    event.preventDefault();
+    var highScoreText = initials.value + ' : ' + secondsLeft;
     if (highScoreText === '') {
         return;
     } else {
-        highScores.push(highScoreText);
-        highScoreText.value = '';
+        // check if local storage exist 
+        if (localStorage.getItem('highScores') !== null) {
+            highScores = JSON.parse(localStorage.getItem('highScores'));
+        }
+        highScores.push(highScoreText.toUpperCase());
+        initials.value = '';
+        setHighScores();
+        renderHighScores();
     }
-    setHighScores();
-    renderHighScores();
+    sectionDone.setAttribute('class', 'hidden');
+    sectionHighScores.setAttribute('class', 'visible');
 });
 
 btnBack.addEventListener('click', backToMain);
+btnClear.addEventListener('click', clearHighScores);
 
 
 
