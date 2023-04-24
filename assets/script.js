@@ -100,12 +100,12 @@ btnStart.addEventListener('click', function () {
     setTime();
     sectionStart.setAttribute('class', 'hidden');
     sectionQ1.setAttribute('class', 'visible');
+    currentSection = sectionQ1;
 });
 
 highScoresBtn.addEventListener('click', function () {
     // hide current section
     currentSection.setAttribute('class', 'hidden');
-    console.log(currentSection);
     // show high-scores section
     sectionHighScores.setAttribute('class', 'visible');
     // clear interval
