@@ -25,7 +25,7 @@ var timerInterval;
 var highScores = [];
 
 /////// Functions ////////
-// Timer function
+// Timer 
 function setTime() {
     timerInterval = setInterval(function () {
         secondsLeft--;
@@ -41,8 +41,7 @@ function setTime() {
     }, 1000);
 }
 
-
-// Function wrong answer -> lose time
+// Lose time 
 var loseTime = function () {
     if ((secondsLeft - 10) <= 0) {
         secondsLeft = 0;
@@ -53,13 +52,13 @@ var loseTime = function () {
     }
 }
 
-// Init function 
+// Init  
 var init = function () {
     secondsLeft = 100;
     sectionStart.setAttribute('class', 'visible');
 }
 
-// Game over function
+// Game over 
 var gameOver = function () {
     currentSection.setAttribute('class', 'hidden');
     sectionDone.setAttribute('class', 'visible');
@@ -67,21 +66,20 @@ var gameOver = function () {
     clearInterval(timerInterval);
 }
 
-// setting value in local storage
+// Set value in local storage
 var setHighScores = function () {
     localStorage.setItem('highScores', JSON.stringify(highScores));
 }
 
-
-// Getting values from local storage (this is not working)
+// Render values from local storage 
 var renderHighScores = function () {
-
+    // Get the local storage values
     highScores = JSON.parse(localStorage.getItem('highScores'));
 
-    // clean old item list 
+    // Clean old item list 
     ulHighScore.innerHTML = '';
 
-    // add innitials to list
+    // Add innitials to list
     for (var i = 0; i < highScores.length; i++) {
         var li = document.createElement('li');
         li.textContent = highScores[i];
@@ -92,15 +90,13 @@ var renderHighScores = function () {
     }
 }
 
-// function clear high scores
+// Clear high scores
 var clearHighScores = function () {
     // clear data from local storage
     localStorage.setItem('highScores', JSON.stringify([]));
     // clear data from render
     renderHighScores();
 }
-
-
 
 // Going back to main page
 var backToMain = function () {
@@ -110,6 +106,23 @@ var backToMain = function () {
     timerDisplay.textContent = 'Time: 100';
     secondsLeft = 100;
 }
+
+// New functions to work with
+var feedbackCorrect = function () {
+    feedback.innerHTML = 'Correct!';
+    feedback.setAttribute('class', 'feedback visible');
+
+}
+
+var hideMsg = function () {
+    feedback.setAttribute('class', 'feedback hidden');
+}
+
+var feedbackWrong = function () {
+    feedback.innerHTML = 'Wrong!';
+    feedback.setAttribute('class', 'feedback visible');
+}
+
 
 
 
@@ -137,15 +150,11 @@ sectionQ1.addEventListener('click', function (event) {
     var element = event.target;
     var number = element.getAttribute("data-number");
     if (number === '3') {
+        currentSection = sectionQ2;
         sectionQ1.setAttribute('class', 'hidden');
         sectionQ2.setAttribute('class', 'visible');
-        currentSection = sectionQ2;
-        //   feedback.innerHTML = 'Correct!';
-        //   feedback.setAttribute('class', 'feedback visible');
     } else {
         loseTime();
-        feedback.innerHTML = 'Wrong!';
-        feedback.setAttribute('class', 'visible');
         currentSection = sectionQ1;
     }
 });
@@ -155,9 +164,9 @@ sectionQ2.addEventListener('click', function (event) {
     var number = element.getAttribute("data-number");
 
     if (number === '3') {
+        currentSection = sectionQ3;
         sectionQ2.setAttribute('class', 'hidden');
         sectionQ3.setAttribute('class', 'visible');
-        currentSection = sectionQ3;
     } else {
         loseTime();
         currentSection = sectionQ2;
@@ -169,9 +178,9 @@ sectionQ3.addEventListener('click', function (event) {
     var number = element.getAttribute("data-number");
 
     if (number === '4') {
+        currentSection = sectionQ4;
         sectionQ3.setAttribute('class', 'hidden');
         sectionQ4.setAttribute('class', 'visible');
-        currentSection = sectionQ4;
     } else {
         loseTime();
         currentSection = sectionQ3;
@@ -183,9 +192,9 @@ sectionQ4.addEventListener('click', function (event) {
     var number = element.getAttribute("data-number");
 
     if (number === '3') {
+        currentSection = sectionQ5;
         sectionQ4.setAttribute('class', 'hidden');
         sectionQ5.setAttribute('class', 'visible');
-        currentSection = sectionQ5;
     } else {
         loseTime();
         currentSection = sectionQ4;
@@ -196,6 +205,7 @@ sectionQ5.addEventListener('click', function (event) {
     var element = event.target;
     var number = element.getAttribute("data-number");
     currentSection = sectionQ5;
+
     if (number === '4') {
         gameOver();
     } else {
@@ -205,7 +215,7 @@ sectionQ5.addEventListener('click', function (event) {
 
 formBtn.addEventListener('click', function (event) {
     event.preventDefault();
-    var highScoreText = initials.value + ' : ' + secondsLeft;
+    var highScoreText = initials.value + ' - ' + secondsLeft;
     if (highScoreText === '') {
         return;
     } else {
