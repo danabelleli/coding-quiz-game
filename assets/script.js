@@ -107,23 +107,19 @@ var backToMain = function () {
     secondsLeft = 100;
 }
 
-// New functions to work with
-var feedbackCorrect = function () {
-    feedback.innerHTML = 'Correct!';
+// Show message + hide message
+var showMsg = function (message) {
+    feedback.innerHTML = message;
     feedback.setAttribute('class', 'feedback visible');
-
+    hideMsg();
 }
 
+// Hide message
 var hideMsg = function () {
-    feedback.setAttribute('class', 'feedback hidden');
+    setTimeout(() => {
+        feedback.setAttribute('class', 'feedback hidden');
+    }, 1000);
 }
-
-var feedbackWrong = function () {
-    feedback.innerHTML = 'Wrong!';
-    feedback.setAttribute('class', 'feedback visible');
-}
-
-
 
 
 /////// Event listeners ////////
@@ -151,11 +147,13 @@ sectionQ1.addEventListener('click', function (event) {
     var number = element.getAttribute("data-number");
     if (number === '3') {
         currentSection = sectionQ2;
+        showMsg('Correct!');
         sectionQ1.setAttribute('class', 'hidden');
         sectionQ2.setAttribute('class', 'visible');
     } else {
         loseTime();
         currentSection = sectionQ1;
+        showMsg('Wrong!');
     }
 });
 
@@ -165,11 +163,13 @@ sectionQ2.addEventListener('click', function (event) {
 
     if (number === '3') {
         currentSection = sectionQ3;
+        showMsg('Correct!');
         sectionQ2.setAttribute('class', 'hidden');
         sectionQ3.setAttribute('class', 'visible');
     } else {
         loseTime();
         currentSection = sectionQ2;
+        showMsg('Wrong!');
     }
 });
 
@@ -179,11 +179,13 @@ sectionQ3.addEventListener('click', function (event) {
 
     if (number === '4') {
         currentSection = sectionQ4;
+        showMsg('Correct!');
         sectionQ3.setAttribute('class', 'hidden');
         sectionQ4.setAttribute('class', 'visible');
     } else {
         loseTime();
         currentSection = sectionQ3;
+        showMsg('Wrong!');
     }
 });
 
@@ -193,11 +195,13 @@ sectionQ4.addEventListener('click', function (event) {
 
     if (number === '3') {
         currentSection = sectionQ5;
+        showMsg('Correct!');
         sectionQ4.setAttribute('class', 'hidden');
         sectionQ5.setAttribute('class', 'visible');
     } else {
         loseTime();
         currentSection = sectionQ4;
+        showMsg('Wrong!');
     }
 });
 
@@ -207,9 +211,11 @@ sectionQ5.addEventListener('click', function (event) {
     currentSection = sectionQ5;
 
     if (number === '4') {
+        showMsg('Correct!');
         gameOver();
     } else {
         loseTime();
+        showMsg('Wrong!');
     }
 });
 
