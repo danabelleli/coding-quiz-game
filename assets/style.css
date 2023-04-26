@@ -96,6 +96,11 @@ body {
     background-color: #2f184b;
 }
 
+.feedback-box {
+    margin-top: 1rem;
+    margin-left: 43rem;
+}
+
 .feedback {
     margin-top: 2rem;
     color: #8d8a90;
@@ -151,7 +156,6 @@ form {
 
 .btn:hover {
     background-color: #2f184b;
-
 }
 
 .high-scores-box {
